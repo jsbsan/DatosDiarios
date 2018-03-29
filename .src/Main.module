@@ -1,0 +1,81 @@
+' Gambas module file
+
+'referencia: http://gambaswiki.org/wiki/lang/lineinput
+
+Public Sub Main()
+
+  Dim hFile As Stream
+  Dim hfileSalida As Stream
+
+  Dim sOneLine As String
+  Dim NombreFichero As String
+  Dim contador As Integer
+  Dim contadorlineas As Integer
+
+  Dim NombreColumna As String[]
+  Dim datos As String[]
+  Dim fecha As String 'guarda la fecha del dato
+  Dim fecha2 As String 'guarda la fecha del dato
+  Dim datosAntiguos As String[]
+  Dim datosLeidos As String[]
+  Dim DatosAGuardar As String
+
+  If Args.Count > 1 Then
+    Print Args[1] 'argumento recibido
+    NombreFichero = Args[1]
+  Else
+    Print "No se ha recibido nombre de fichero a tratar"
+    Print "La estructura del fichero debe de ser:"
+    Print "Los datos deben de ir separados por punto y coma (;)"
+    Print "El primer dato es la fecha y hora"
+    Print "El resto seran los datos"
+    Print "La primera fila contiene el nombre de los campos, separados por coma"
+    Quit
+
+  Endif
+
+  If Not Exist(NombreFichero) Then
+    Print "No existe el fichero: "; NombreFichero
+    Quit
+  Endif
+
+  ' Print a file to standard output
+  hFile = Open NombreFichero For Input
+  'leo la primera linea que contiene los nombre de la columna de datos
+  Line Input #hFile, sOneLine
+  NombreColumna = Split(sOneLine, ";")
+  DatosAGuardar &= "Fecha" & ";" & NombreColumna.Join(";") & "\n"
+
+  'leo la primera linea de datos
+  Line Input #hFile, sOneLine
+  datos = Split(sOneLine, ";")
+  fecha = Mid$(datos[0], 1, 10)
+  datosAntiguos = Split(sOneLine, ";")
+  contador = 1
+  contadorlineas = 2
+  While Not Eof(hFile)
+    Line Input #hFile, sOneLine
+
+    datosLeidos = Split(sOneLine, ";")
+    fecha2 = Mid$(datosLeidos[0], 1, 10)
+
+    If fecha2 = fecha Then
+      'no hacer nada
+    Else
+      Print fecha; ";"; DatosAntiguos.join(";")
+      DatosAGuardar &= fecha & ";" & DatosAntiguos.join(";") & "\n"
+
+      datosAntiguos = Split(sOneLine, ";")
+      fecha = fecha2
+      contador += 1
+    Endif
+    contadorlineas += 1
+  Wend
+
+  Close #hFile
+
+  Print "Numero de lineas del fichero Original:"; contadorlineas
+  Print "Numero de dias:"; contador
+  File.Save(User.home & "/DatosDiarios.txt", DatosAGuardar)
+
+End

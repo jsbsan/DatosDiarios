@@ -1,0 +1,10 @@
+# Gambas Project File 3.0
+# Compiled with Gambas 3.10.0
+Title=mediadiaria
+Startup=Main
+Version=0.0.1
+Arguments=[["Control2015a2018MJT.csv"]]
+CurrentArgument=1
+TabSize=2
+Language=en_US
+Packager=1
