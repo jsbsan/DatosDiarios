@@ -76,6 +76,6 @@ Public Sub Main()
 
   Print "Numero de lineas del fichero Original:"; contadorlineas
   Print "Numero de dias:"; contador
-  File.Save(User.home & "/DatosDiarios.txt", DatosAGuardar)
+  File.Save(User.home & "/DatosDiarios.csv", DatosAGuardar)
 
 End

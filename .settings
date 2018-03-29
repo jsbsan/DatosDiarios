@@ -5,9 +5,10 @@ Count=0
 Count=0
 
 [OpenFile]
-Active=1
-File[1]=".src/Main.module:2.6"
-Count=1
+Active=2
+File[1]=".src/Main.module:35.77"
+Count=2
+File[2]="DatosDiarios.csv:0.0"
 
 [Watches]
 Count=0

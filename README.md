@@ -6,3 +6,4 @@ Dado un fichero con multiples filas de datos diarios separados por punto y coma,
 La primera fila tendrás las cabeceras de los nombres de los campos.
 La primera columna será la fecha y hora. 
 
+El fichero resultado se nombra como "DatosDiarios.csv", y se crea en el directorio del usuario /home/usuario
